@@ -1,6 +1,6 @@
 <?php
 	// Armor Categories
-	$queryArmorCat = "SELECT * FROM gw2_armor_categories";
+	$queryArmorCat = "SELECT * FROM gw2_armor_categories ORDER BY `order` ASC";
 	$resultArmorCat = mysqli_query($con, $queryArmorCat);
 	$armorCat = array();
 	
@@ -16,7 +16,7 @@
 	}
 
 	// Armor Types
-	$queryArmorTypes = "SELECT * FROM gw2_armor_types";
+	$queryArmorTypes = "SELECT * FROM gw2_armor_types ORDER BY `order` ASC";
 	$resultArmorTypes = mysqli_query($con, $queryArmorTypes);
 	$armorTypes = array();
 	
@@ -32,7 +32,7 @@
 	}
 
 	// Weapon Categories
-	$queryWeaponCat = "SELECT * FROM gw2_weapon_categories";
+	$queryWeaponCat = "SELECT * FROM gw2_weapon_categories ORDER BY `order` ASC";
 	$resultWeaponCat = mysqli_query($con, $queryWeaponCat);
 	$weaponCat = array();
 	
@@ -48,7 +48,7 @@
 	}
 
 	// Weapon Types
-	$queryWeaponTypes = "SELECT * FROM gw2_weapon_types";
+	$queryWeaponTypes = "SELECT * FROM gw2_weapon_types ORDER BY `order` ASC";
 	$resultWeaponTypes = mysqli_query($con, $queryWeaponTypes);
 	$weaponTypes = array();
 	
@@ -65,7 +65,7 @@
 	
 	
 	// Skins
-	$querySkins = "SELECT * FROM gw2_skins";
+	$querySkins = "SELECT * FROM gw2_skins ORDER BY `name` ASC";
 	$resultSkins = mysqli_query($con, $querySkins);
 	$skins = array();
 	
