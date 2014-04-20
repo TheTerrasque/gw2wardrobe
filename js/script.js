@@ -18,8 +18,19 @@ var gw2w = {
 		// Applies the view model
 		ko.applyBindings(gw2w.vm);
 		
-		// Ajax
-		gw2w.ajax.exec();
+		// Process data
+		gw2w.process.categories();
+		gw2w.process.types();
+		gw2w.process.skins();
+		
+		//gw2w.plugins.tooltip();
+		$('.gw2tooltip').tooltip();
+		
+		// Update tracker
+		gw2w.storage.tracker.get();
+		
+		// Listeners
+		gw2w.listeners.all();
 	},
 	
 	// The view model object
@@ -51,8 +62,10 @@ var gw2w = {
 		// Armor and weapon array
 		self.armors = ko.observableArray();
 		self.weapons = ko.observableArray();
-		self.armorSubtypes = ko.observableArray();
-		self.weaponSubtypes = ko.observableArray();
+		self.armorTypes = ko.observableArray();
+		self.weaponTypes = ko.observableArray();
+		self.armorCategories = ko.observableArray();
+		self.weaponCategories = ko.observableArray();
 		
 		// Search
 		self.search = ko.observable(undefined);
@@ -102,34 +115,57 @@ var gw2w = {
 		// Class to represent an armor item
 		armor: function(obj) {
 			var self = this;
-			self.id = obj.data_id;
+			self.id = obj.id;
 			self.name = obj.name;
 			self.img = obj.img;
-			self.type = obj.type_id;
-			self.subType = obj.sub_type_id;
+			self.type = obj.type;
+			self.weight = obj.weight;
+			self.acq = obj.acq;
 			self.visible = ko.observable(true);
 		},		
 		// Class to represent a weapon item
 		weapon: function(obj) {
 			var self = this;
-			self.id = obj.data_id;
+			self.id = obj.id;
 			self.name = obj.name;
 			self.img = obj.img;
-			self.type = obj.type_id;
-			self.subType = obj.sub_type_id;
+			self.type = obj.type;
+			self.acq = obj.acq;
 			self.visible = ko.observable(true);
 		},
 		// Class to represent armor subtypes
-		armorSubtype: function(obj) {
+		armorType: function(obj) {
 			var self = this;
 			self.id = obj.id;
-			self.name = obj.name;
+			self.shortname = obj.shortname;
+			self.fullname = obj.fullname;
+			self.order = obj.order;
+			self.category = obj.category;
 		},
 		// Class to represent weapon subtypes
-		weaponSubtype: function(obj) {
+		weaponType: function(obj) {
 			var self = this;
 			self.id = obj.id;
-			self.name = obj.name;
+			self.shortname = obj.shortname;
+			self.fullname = obj.fullname;
+			self.order = obj.order;
+			self.category = obj.category;
+		},
+		// Class to represent armor categories
+		armorCategory: function(obj) {
+			var self = this;
+			self.id = obj.id;
+			self.shortname = obj.shortname;
+			self.fullname = obj.fullname;
+			self.order = obj.order;
+		},
+		// Class to represent weapon categories
+		weaponCategory: function(obj) {
+			var self = this;
+			self.id = obj.id;
+			self.shortname = obj.shortname;
+			self.fullname = obj.fullname;
+			self.order = obj.order;
 		},
 		// Class for the tracker
 		trackerItem: function(obj) {
@@ -147,6 +183,12 @@ var gw2w = {
 	},
 	
 	api: {
+		skins: function() {
+			return "https://api.guildwars2.com/v1/skins.json";
+		},
+		skinDetails: function(id) {
+			return "https://api.guildwars2.com/v1/skin_details.json?skin_id=" + id;
+		},
 		items: function() {
 			return "https://api.guildwars2.com/v1/items.json";
 		},
@@ -187,6 +229,28 @@ var gw2w = {
 		},
 		copy: function(text) {
 			
+		},
+		order: function(genre, type) {
+			var vm = gw2w.vm;
+			var types;
+			
+			if(genre == "Armor") {
+				types = vm.armorTypes();
+			}
+			else if(genre == "Weapon") {
+				types = vm.weaponTypes();
+			}
+			else {
+				// Unexpected variable
+				return null;
+			}
+			
+			for(var i = 0; i < types.length; i++) {
+				if(types[i].shortname == type) {
+					// Return the order
+					return types[i].order-1;
+				}
+			}
 		},
 		BEtoLE: function(be) {
 			// Thanks to ArenaNet for creating this!
@@ -351,7 +415,7 @@ var gw2w = {
 		},
 		itemBlock: function() {
 			$(".itemBlock").on("click", function() {
-				var id = $(this).attr("data-gw2item");
+				var id = $(this).attr("data-gw2skin");
 				gw2w.populate.itemDetails(id);
 			});
 		},
@@ -501,22 +565,8 @@ var gw2w = {
 	},
 	
 	populate: {
-		items: function() {
-			var url = gw2w.api.items();
-			
-			$.ajax({
-				dataType: "json",
-				url: url,
-				success: function(data) {
-					gw2w.items.raw = data;
-					
-					// Callback to details
-					// gw2w.populate.details();
-				}
-			});
-		},
 		itemDetails: function(id) {
-			var url = gw2w.api.itemDetails(id);
+			var url = gw2w.api.skinDetails(id);
 			
 			$.ajax({
 				dataType: "json",
@@ -524,42 +574,6 @@ var gw2w = {
 				success: function(data) {
 					gw2w.items.details = data;
 					gw2w.process.itemDetails();
-				}
-			});
-		},
-		types: function() {
-			var url = gw2w.api.gw2spidy.types();
-			
-			$.ajax({
-				dataType: "json",
-				url: url,
-				success: function(data) {
-					gw2w.items.types = data;
-					gw2w.process.types();
-				}
-			});
-		},
-		armors: function() {
-			var url = gw2w.api.gw2spidy.allArmors();
-			
-			$.ajax({
-				dataType: "json",
-				url: url,
-				success: function(data) {
-					gw2w.items.armors = data;
-					gw2w.process.armors();
-				}
-			});
-		},
-		weapons: function() {
-			var url = gw2w.api.gw2spidy.allWeapons();
-			
-			$.ajax({
-				dataType: "json",
-				url: url,
-				success: function(data) {
-					gw2w.items.weapons = data;
-					gw2w.process.weapons();
 				}
 			});
 		},
@@ -579,98 +593,137 @@ var gw2w = {
 	},
 	
 	process: {
-		armors: function() {
+		skins: function() {
 			var vm = gw2w.vm;
-			var armors = gw2w.items.armors.results;
+			var skins = skinsDB.skins;
 			
-			$.each(armors, function(index, obj) {
-				// Only proceed to add it if the item can be found
-				var imgSubdomain = obj.img.split(".")[0].split("//")[1];
+			$.each(skins, function(index, obj) {
+				var self = this;
 				
-				// "render" is the new subdomain for image rendering.
-				// The old one is not working, but some items still use it.
-				if(imgSubdomain == "render") {
-					var i = obj.sub_type_id;
+				// Is this armor?
+				if(self.type == "Armor") {
+					var armor = {
+						"id": obj.id,
+						"name": obj.name,
+						"img": gw2w.api.render(obj.icon_file_signature, obj.icon_file_id),
+						"type": obj.armor_type,
+						"weight": obj.armor_weight,
+						"acq": obj.acquisition
+					}
 					
-					// Lets organize the armor types.
-					// We place the object into a multidimentional array.
-					vm.armors()[i].value.push(new gw2w.class.armor(obj));
+					// We need to find the order of the armor_type
+					var order = gw2w.general.order(self.type, obj.armor_weight + obj.armor_type);
+					vm.armors()[order].value.push(new gw2w.class.armor(armor));
 				}
-			});
-		},
-		weapons: function() {
-			var vm = gw2w.vm;
-			var weapons = gw2w.items.weapons.results;
-			
-			$.each(weapons, function(index, obj) {
-				// Only proceed to add it if the item can be found
-				var imgSubdomain = obj.img.split(".")[0].split("//")[1];
-				
-				// "render" is the new subdomain for image rendering.
-				// The old one is not working, but some items still use it.
-				if(imgSubdomain == "render") {
-					var i = obj.sub_type_id;
+				// Or is this just fantasy? Ehm, I mean... weapon*
+				else if(self.type == "Weapon") {
+					var weapon = {
+						"id": obj.id,
+						"name": obj.name,
+						"img": gw2w.api.render(obj.icon_file_signature, obj.icon_file_id),
+						"type": obj.weapon_type,
+						"acq": obj.acquisition
+					}
 					
-					// Lets organize the weapon types.
-					// We place the object into a multidimentional array.
-					vm.weapons()[i].value.push(new gw2w.class.weapon(obj));
+					// We need to find the order of the armor_type
+					var order = gw2w.general.order(self.type, obj.weapon_type);
+					vm.weapons()[order].value.push(new gw2w.class.weapon(weapon));
 				}
-			});
-			
-			// Because of missing subtypes, we have some null values in the weapons array.
-			// Lets remove those empty values!
-			vm.weapons.remove(function(item) {
-				return typeof(item) != "object";
-			});
-			
-			// Also, let's remove some of the bullshit subtypes.
-			// To make it simple, we remove those that have less than 10 items in them.
-			vm.weapons.remove(function(item) {
-				return item.value().length < 10;
-			});
-			
-			// And lastly, let's sort them alphabetically
-			vm.weapons.sort(function(left, right) {
-				return left.id == right.id ? 0 : (left.id < right.id ? -1 : 1);
 			});
 		},
 		types: function() {
 			var vm = gw2w.vm;
-			var armorSubtypes = gw2w.items.types.results[0].subtypes;
-			var weaponSubtypes = gw2w.items.types.results[12].subtypes;
+			var armorTypes = skinsDB.armor_types;
+			var weaponTypes = skinsDB.weapon_types;
 			
 			// Lets organize the types into subtypes for armors
-			$.each(armorSubtypes, function(index, obj) {
+			$.each(armorTypes, function(index, obj) {
+				var armorType = {
+					"id": obj.id,
+					"shortname": obj.shortname,
+					"fullname": obj.fullname,
+					"order": obj.order,
+					"category": obj.category
+				}
+				
 				// Lets organize the types into subtypes for armors and weapons.
-				vm.armorSubtypes()[obj.id] = new gw2w.class.armorSubtype(obj);
+				vm.armorTypes.push(new gw2w.class.armorType(armorType));
+				
+				// Push to armors as parent node for the actual armors
+				vm.armors.push({
+					"id": obj.id,
+					"shortname": obj.shortname,
+					"fullname": obj.fullname,
+					"arrow": gw2w.items.arrow,
+					"size": ko.observable(null),
+					"visible": ko.observable(true),
+					"value": ko.observableArray()
+				});
 			});
 			
 			// Lets organize the types into subtypes for weapons
-			$.each(weaponSubtypes, function(index, obj) {
+			$.each(weaponTypes, function(index, obj) {
+				var weaponType = {
+					"id": obj.id,
+					"shortname": obj.shortname,
+					"fullname": obj.fullname,
+					"order": obj.order,
+					"category": obj.category
+				}
+				
 				// Lets organize the types into subtypes for armors and weapons.
-				vm.weaponSubtypes()[obj.id] = new gw2w.class.weaponSubtype(obj);
+				vm.weaponTypes.push(new gw2w.class.weaponType(weaponType));
+				
+				// Push to weapons as parent node for the actual weapons
+				vm.weapons.push({
+					"id": obj.id,
+					"shortname": obj.shortname,
+					"fullname": obj.fullname,
+					"arrow": gw2w.items.arrow,
+					"size": ko.observable(null),
+					"visible": ko.observable(true),
+					"value": ko.observableArray()
+				});
 			});
 			
-			// Creating multidimentional arrays inside gw2w.vm.armors and gw2w.vm.weapons
-			$.each(armorSubtypes, function(index, obj) {
-				//vm.armors()[obj.id] = {"name": obj.name, "value": ko.observableArray()};
-				vm.armors()[obj.id] = {
-					"id": gw2w.general.unspacify(obj.name),
-					"name": obj.name,
-					"arrow": gw2w.items.arrow,
-					"size": ko.observable(null),
-					"value": ko.observableArray()
-				};
+			// And because we're using a nasty way of pushing stuff into observableArrays, we gotta update them
+			gw2w.update();
+		},
+		categories: function() {
+			var vm = gw2w.vm;
+			var armorCategories = skinsDB.armor_categories;
+			var weaponCategories = skinsDB.weapon_categories;
+			
+			// Creating armorCategory classes
+			$.each(armorCategories, function(index, obj) {
+				var armorCategory = {
+					"id": obj.id,
+					"shortname": obj.shortname,
+					"fullname": obj.fullname,
+					"order": obj.order
+				}
+				
+				// Push to armorCategories
+				vm.armorCategories.push(new gw2w.class.armorCategory(armorCategory));
+				
+				// Push to armors
+				// Maybe...
 			});
-			$.each(weaponSubtypes, function(index, obj) {
-				//vm.weapons()[obj.id] = {"name": obj.name, "value": ko.observableArray()};
-				vm.weapons()[obj.id] = {
-					"id": gw2w.general.unspacify(obj.name),
-					"name": obj.name,
-					"arrow": gw2w.items.arrow,
-					"size": ko.observable(null),
-					"value": ko.observableArray()
-				};
+			
+			// Creating weaponCategory classes
+			$.each(weaponCategories, function(index, obj) {
+				var weaponCategory = {
+					"id": obj.id,
+					"shortname": obj.shortname,
+					"fullname": obj.fullname,
+					"order": obj.order
+				}
+				
+				// Push to weaponCategories
+				vm.weaponCategories.push(new gw2w.class.weaponCategory(weaponCategory));
+				
+				// Push to weapons
+				// Maybe
 			});
 		},
 		itemDetails: function() {
@@ -688,10 +741,9 @@ var gw2w = {
 			
 			// Give the variables some data
 			vm.detailEmpty(false);
-			vm.detailId(details.item_id);
-			vm.detailCode(gw2w.general.encodeId(details.item_id));
+			vm.detailId(details.skin_id);
+			vm.detailCode(gw2w.general.encodeId(details.skin_id));
 			vm.detailName(details.name);
-			vm.detailDesc(details.description);
 			vm.detailIcon(gw2w.api.render(details.icon_file_signature, details.icon_file_id));
 //			vm.detailImages();	// Done automagically
 			vm.detailPage(gw2w.api.itemPage(details.name));
@@ -1200,12 +1252,6 @@ var gw2w = {
 	plugins: {
 		tooltip: function() {
 			$.gw2tooltip('[data-gw2item]');
-		}
-	},
-	
-	collapse: {
-		toggle: function() {
-			
 		}
 	}
 }

@@ -1201,6 +1201,12 @@ var gw2w = {
 		tooltip: function() {
 			$.gw2tooltip('[data-gw2item]');
 		}
+	},
+	
+	collapse: {
+		toggle: function() {
+			
+		}
 	}
 }
 

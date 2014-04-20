@@ -11,7 +11,6 @@
 		
 		<!-- Custom style -->
 		<link href="css/style.css" rel="stylesheet">
-		<link href="js/theme/default/guildwars2-tooltip.css" rel="stylesheet">
 		
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,7 +22,9 @@
 	
 	<body>
 		<?php
+			include('db/config.php');
 			include('includes/header.php');
+			include('includes/data.php');
 		?>
 		
 		<div class="container-fluid">
@@ -59,9 +60,9 @@
 								</h5>
 							</div>
 							
-							<ul id="sortArmor" class="list-group collapse in" data-bind="foreach: armors">
+							<ul id="sortArmor" class="list-group collapse in" data-bind="foreach: armorCategories">
 								<li class="list-group-item">
-									<a data-bind='attr: {href: "#" + id}, text: name'></a>
+									<a data-bind='attr: {href: "#" + shortname}, text: fullname'></a>
 								</li>
 							</ul>
 						</div>
@@ -76,30 +77,12 @@
 								</h5>
 							</div>
 							
-							<ul id="sortWeapon" class="list-group collapse" data-bind="foreach: weapons">
+							<ul id="sortWeapon" class="list-group collapse" data-bind="foreach: weaponCategories">
 								<li class="list-group-item">
-									<a data-bind='attr: {href: "#" + id}, text: name'></a>
+									<a data-bind='attr: {href: "#" + shortname}, text: fullname'></a>
 								</li>
 							</ul>
 						</div>
-						
-						<!--<div class="panel panel-default">
-							<div class="panel-heading">
-								<h5>
-									<a href="#sortOutfit" class="collapsed" data-toggle="collapse" data-parent="#sortMenu">
-										Outfits
-										<span class="collapse-arrow pull-right">&#x25B2;</span>
-									</a>
-								</h5>
-							</div>
-							
-							<ul id="sortOutfit" class="list-group collapse">
-								<li class="list-group-item">All weights</li>
-								<li class="list-group-item">Light</li>
-								<li class="list-group-item">Medium</li>
-								<li class="list-group-item">Heavy</li>
-							</ul>
-						</div>-->
 					</div>
 				</div>
 				
@@ -112,15 +95,15 @@
 						<div data-bind="foreach: armors">
 							<div class="panel panel-default" data-bind="visible: size() != 0">
 								<div class="panel-heading">
-									<a class="collapsed" data-toggle="collapse" data-bind='html: name + arrow, attr: {href: "#" + id}'></a>
+									<a class="collapsed" data-toggle="collapse" data-bind='html: fullname + arrow, attr: {href: "#" + shortname}'></a>
 									<span style="margin-right: -3px">(</span>
 									<span data-bind='text: size() + " / ", visible: size() != null'></span>
 									<span data-bind='text: value().length + ")"'></span>
 								</div>
 								
-								<div class="panel-collapse collapse" data-bind="attr: {id: id}">
+								<div class="panel-collapse collapse" data-bind="attr: {id: shortname}">
 									<div class="panel-body" data-bind="foreach: value">
-										<div class="itemBlock" data-bind='attr: {"data-gw2item": id}, visible: visible'>
+										<div class="itemBlock" data-bind='attr: {"data-gw2skin": id}, visible: visible'>
 											<img data-bind="attr: {src: img}" />
 										</div>
 									</div>
@@ -131,15 +114,15 @@
 						<div data-bind="foreach: weapons">
 							<div class="panel panel-default" data-bind="visible: size() != 0">
 								<div class="panel-heading">
-									<a class="collapsed" data-toggle="collapse" data-bind='html: name + arrow, attr: {href: "#" + id}'></a>
+									<a class="collapsed" data-toggle="collapse" data-bind='html: fullname + arrow, attr: {href: "#" + shortname}'></a>
 									<span style="margin-right: -3px">(</span>
 									<span data-bind='text: size() + " / ", visible: size() != null'></span>
 									<span data-bind='text: value().length + ")"'></span>
 								</div>
 								
-								<div class="panel-collapse collapse" data-bind="attr: {id: id}">
+								<div class="panel-collapse collapse" data-bind="attr: {id: shortname}">
 									<div class="panel-body" data-bind="foreach: value">
-										<div class="itemBlock" data-bind='attr: {"data-gw2item": id}, visible: visible'>
+										<div class="itemBlock" data-bind='attr: {"data-gw2skin": id}, visible: visible'>
 											<img data-bind="attr: {src: img}" />
 										</div>
 									</div>
@@ -163,7 +146,7 @@
 					<div id="itemDetails">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h5>Item Details</h5>
+								<h5>Skin Details</h5>
 							</div>
 							
 							<ul class="list-group" data-bind="visible: detailId">
@@ -198,7 +181,7 @@
 							</ul>
 							
 							<div class="panel-body" data-bind="visible: detailEmpty">
-								<p class="text-muted">Click on an item to show details.</p>
+								<p class="text-muted">Click on a skin to show details.</p>
 							</div>
 							
 							<div class="panel-footer">
@@ -212,7 +195,7 @@
 					<div id="tracker">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h5>Item Tracker <span class="gw2tooltip glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="The item tracker saves automagically! You can close or refresh your browser and everything will still be here."></span></h5>
+								<h5>Skin Tracker <span class="gw2tooltip glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="The item tracker saves automagically! You can close or refresh your browser and everything will still be here."></span></h5>
 							</div>
 							
 							<ul class="list-group" data-bind="foreach: tracker, visible: tracker().length > 0">
@@ -224,7 +207,7 @@
 							</ul>
 							
 							<div class="panel-body" data-bind="visible: tracker().length < 1">
-								<p class="text-muted">There are currently no items in the tracker.</p>
+								<p class="text-muted">There are currently no skins in the tracker.</p>
 							</div>
 							
 							<div class="panel-footer">
@@ -251,7 +234,6 @@
 		<script src="js/knockout-3.1.0.js"></script>
 		<!-- Custom Script -->
 		<script src="js/ZeroClipboard.min.js"></script>
-		<script src="js/guildwars2-tooltip.jquery.min.js"></script>
 		<script src="js/script.js"></script>
 		
 		
