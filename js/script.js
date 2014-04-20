@@ -265,11 +265,11 @@ var gw2w = {
 			gw2w.update();
 			
 			// Storage
-			gw2w.storage.tracker.get();
+			//gw2w.storage.tracker.get();
 			
 			// Plugins
-			gw2w.plugins.tooltip();
-			$('.gw2tooltip').tooltip()
+			//gw2w.plugins.tooltip();
+			$('.gw2tooltip').tooltip();
 			
 			// Listeners
 			gw2w.listeners.all();

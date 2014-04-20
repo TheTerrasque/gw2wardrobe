@@ -23,7 +23,9 @@
 	
 	<body>
 		<?php
+			include('../db/config.php');
 			include('../includes/header.php');
+			include('../includes/data.php');
 		?>
 		
 		<div class="container-fluid">

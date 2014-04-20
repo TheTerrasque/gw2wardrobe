@@ -10,23 +10,23 @@
 	$skins = json_decode($skins);
 	$skins = $skins->skins;
 	$skinsProcessed = array();
-	$i = 0;
 	
 	// If we got our data
 	if(isset($skins)) {
+		// Maybe limit the search, because we suck at server-side programming
+		$from = 0;
+		$to = sizeof($skins);
+		
 		// Now, we'll have to get some details about every single one of the skins
-		foreach ($skins as $skin) {
-			/*$i++;
-			if ($i == 10) break;*/
-			
-			$detailsUrl = $apiSkinDetails . $skin;
+		for($from; $from < $to; $from++) {
+			$detailsUrl = $apiSkinDetails . $skins[$from];
 			$details = file_get_contents($detailsUrl);
 			$details = json_decode($details);
 			
 			// Gotta create an StdClass to hold the skin details
 			$detailsProcessed = new StdClass;
 			$detailsProcessed->skin_id = $details->skin_id;
-			$detailsProcessed->name = $details->name;
+			$detailsProcessed->name = mysqli_real_escape_string($con, $details->name);
 			$detailsProcessed->icon_file_id = $details->icon_file_id;
 			$detailsProcessed->icon_file_signature = $details->icon_file_signature;
 			$detailsProcessed->type = $details->type;
@@ -54,16 +54,16 @@
 			$type = $skin->type;
 			
 			if($type == "Weapon") {
-				$sql = "INSERT INTO gw2_skins (id, name, icon_file_id, icon_file_signature, weapon_type)
-						VALUES ('$skin->skin_id', '$skin->name', '$skin->icon_file_id', '$skin->icon_file_signature', '$skin->weapon_type')";
+				$sql = "INSERT INTO gw2_skins (id, name, icon_file_id, icon_file_signature, type, weapon_type)
+						VALUES ('$skin->skin_id', '$skin->name', '$skin->icon_file_id', '$skin->icon_file_signature', '$type', '$skin->weapon_type')";
 			
 				if (!mysqli_query($con,$sql)) {
 					die('Error: ' . mysqli_error($con));
 				}
 			}
 			else if($type == "Armor") {
-				$sql = "INSERT INTO gw2_skins (id, name, icon_file_id, icon_file_signature, armor_type, armor_weight)
-						VALUES ('$skin->skin_id', '$skin->name', '$skin->icon_file_id', '$skin->icon_file_signature', '$skin->armor_type', '$skin->armor_weight')";
+				$sql = "INSERT INTO gw2_skins (id, name, icon_file_id, icon_file_signature, type, armor_type, armor_weight)
+						VALUES ('$skin->skin_id', '$skin->name', '$skin->icon_file_id', '$skin->icon_file_signature', '$type', '$skin->armor_type', '$skin->armor_weight')";
 			
 				if (!mysqli_query($con,$sql)) {
 					die('Error: ' . mysqli_error($con));
