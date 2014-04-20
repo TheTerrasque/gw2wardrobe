@@ -60,7 +60,7 @@
 							<p>When the new wardrobe UI comes out, I'd love to go to a site/app that lets me click a slot in the wardrobe to display info on how that skin is obtained.</p>
 							<footer><a href="http://www.reddit.com/user/Moonfishie">/u/Moonfishie</a></footer>
 						</blockquote>
-						<p>I thought this was a great idea, and quickly started the development. This tool is built on <a href="http://getbootstrap.com/">Twitter Bootstrap</a>, <a href="http://jquery.com/">jQuery</a>, <a href="http://knockoutjs.com/index.html">Knockout JS</a>, <a href="https://github.com/zeroclipboard/zeroclipboard">ZeroClipboard</a>, <a href="https://github.com/rubensayshi/gw2spidy">GW2Spidy</a> and <a href="http://wiki.guildwars2.com/wiki/API:Main">GuildWars2's official API</a>.</p>
+						<p>I thought this was a great idea, and quickly started the development. This tool is built on <a href="http://getbootstrap.com/">Twitter Bootstrap</a>, <a href="http://jquery.com/">jQuery</a>, <a href="http://knockoutjs.com/index.html">Knockout JS</a>, <a href="https://github.com/zeroclipboard/zeroclipboard">ZeroClipboard</a>, and <a href="http://wiki.guildwars2.com/wiki/API:Main">GuildWars2's official API</a>.</p>
 					</div>
 					
 					<div id="features">
@@ -74,7 +74,7 @@
 									<li>
 										View items
 										<ul>
-											<li>Using GW2Spidy's API, all armor and weapon items are stored and displayed in categories.</li>
+											<li>Using GuildWars2's official API, all unique armor and weapon skins are fetched from the API, stored in a local database, and displayed in categories.</li>
 										</ul>
 									</li>
 									<li>Search for items</li>
@@ -113,17 +113,6 @@
 						<ul>
 							<li>Performance improvements.</li>
 							<li>Various design improvements.</li>
-							<li>
-								Wardrobe
-								<ul>
-									<li>
-										View only unique skins.
-										<ul>
-											<li>At the moment there are no options in the API to let us remove duplicate skins, so the list of items will include every stat combination available for that particular item.</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
 							
 							<li>
 								Passion for Fashion
