@@ -657,6 +657,7 @@ var gw2w = {
 					"arrow": gw2w.items.arrow,
 					"size": ko.observable(null),
 					"visible": ko.observable(true),
+					"category": obj.category,
 					"value": ko.observableArray()
 				});
 			});

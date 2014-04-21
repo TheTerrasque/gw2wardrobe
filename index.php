@@ -93,7 +93,7 @@
 					
 					<div id="itemsContainer" class="panel-group">
 						<div data-bind="foreach: armors">
-							<div class="panel panel-default" data-bind="visible: size() != 0">
+							<div class="panel panel-default" data-bind="visible: (size() != 0) && visible">
 								<div class="panel-heading">
 									<a class="collapsed" data-toggle="collapse" data-bind='html: fullname + arrow, attr: {href: "#" + shortname}'></a>
 									<span style="margin-right: -3px">(</span>
@@ -112,7 +112,7 @@
 						</div>
 						
 						<div data-bind="foreach: weapons">
-							<div class="panel panel-default" data-bind="visible: size() != 0">
+							<div class="panel panel-default" data-bind="visible: (size() != 0) && visible">
 								<div class="panel-heading">
 									<a class="collapsed" data-toggle="collapse" data-bind='html: fullname + arrow, attr: {href: "#" + shortname}'></a>
 									<span style="margin-right: -3px">(</span>
