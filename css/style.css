@@ -1,3 +1,7 @@
+body {
+	padding-top: 70px;
+}
+
 #loginForm > * {
 	margin: 3px;
 }
@@ -191,4 +195,18 @@ div.panel hr {
 	border-top: 1px solid #ddd;
 	padding: 30px 20px 20px;
 	margin-top: 40px;
+}
+
+.affix.affixLeft {
+	width: 16.66666667%;
+	padding-right: 30px;
+}
+
+.affix.affixRight {
+	width: 25%;
+	padding-right: 30px;
+}
+
+.affix-bottom {
+	position: relative;
 }

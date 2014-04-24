@@ -30,59 +30,61 @@
 		
 		<div class="container-fluid">
 			<!-- Danger alert -->
-			<div class="alert alert-danger">
+			<!--div class="alert alert-danger">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<h4>GuildWars2 Wardrobe is in beta!</h4>
 				<p>Hello and thanks for checking out the site. I would like to inform you that GuildWars2 Wardrobe is currently under development and that there are some features available, but there will be more. However, feel free to play around. If you want more information about the site, you can read about upcoming features on the <a class="alert-link" href="/about">about page</a> or check out <a class="alert-link" href="https://github.com/nightzirch/gw2wardrobe/commits/master">the changelog on GitHub</a>.</p>
 				<br />
 				<p><strong>Important!</strong> Due to the API fetching <em>all</em> armors and weapons compared to only those with a unique skin, the performance will be extremely poor when loading the wardrobe the first time and the first few times you perform a search. After that, the page will still take some time to load, but the load times depends more on your computer's power. After the browser has loaded the wardrobe once, searching performance will be alot better. I am looking into ways to improve performance, but I am first of all focusing on functionality as the ridiculously large array of items is only temporary until ArenaNet updates their API. Then the array will only include unique skins. Thank you for your patience. It is after all a beta release.</p>
-			</div>
+			</div-->
 			
 			<div class="row">
 				<div class="col-md-2">
-					<div id="sortMenu" class="panel-group">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h5>
-									<a id="collapseToggle" href="#" >
-										Toggle collapse all
-									</a>
-								</h5>
-							</div>
-						</div>
-						
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h5>
-									<a href="#sortArmor" data-toggle="collapse" data-parent="#sortMenu">
-										Armor Skins
-										<span class="collapse-arrow pull-right">&#x25B2;</span>
-									</a>
-								</h5>
+					<div class="affixContainer affixLeft">
+						<div id="sortMenu" class="panel-group">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h5>
+										<a id="collapseToggle" href="#" >
+											Toggle collapse all
+										</a>
+									</h5>
+								</div>
 							</div>
 							
-							<ul id="sortArmor" class="list-group collapse in" data-bind="foreach: armorCategories">
-								<li class="list-group-item">
-									<a data-bind='attr: {href: "#" + shortname}, text: fullname'></a>
-								</li>
-							</ul>
-						</div>
-						
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h5>
-									<a href="#sortWeapon" class="collapsed" data-toggle="collapse" data-parent="#sortMenu">
-										Weapon Skins
-										<span class="collapse-arrow pull-right">&#x25B2;</span>
-									</a>
-								</h5>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h5>
+										<a href="#sortArmor" data-toggle="collapse" data-parent="#sortMenu">
+											Armor Skins
+											<span class="collapse-arrow pull-right">&#x25B2;</span>
+										</a>
+									</h5>
+								</div>
+								
+								<ul id="sortArmor" class="list-group collapse in" data-bind="foreach: armorCategories">
+									<li class="list-group-item">
+										<a data-bind='attr: {href: "#" + shortname}, text: fullname'></a>
+									</li>
+								</ul>
 							</div>
 							
-							<ul id="sortWeapon" class="list-group collapse" data-bind="foreach: weaponCategories">
-								<li class="list-group-item">
-									<a data-bind='attr: {href: "#" + shortname}, text: fullname'></a>
-								</li>
-							</ul>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h5>
+										<a href="#sortWeapon" class="collapsed" data-toggle="collapse" data-parent="#sortMenu">
+											Weapon Skins
+											<span class="collapse-arrow pull-right">&#x25B2;</span>
+										</a>
+									</h5>
+								</div>
+								
+								<ul id="sortWeapon" class="list-group collapse" data-bind="foreach: weaponCategories">
+									<li class="list-group-item">
+										<a data-bind='attr: {href: "#" + shortname}, text: fullname'></a>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -134,86 +136,88 @@
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div id="search">
-						<form class="form-inline" role="form">
-							<div class="form-group has-feedback">
-								<input type="search" class="form-control" id="inputSearch" placeholder="Search items" data-bind="value: search, valueUpdate: 'input'">
-								<span class="glyphicon glyphicon-remove form-control-feedback" data-bind="visible: search" id="clearSearch"></span>
-								<span class="glyphicon glyphicon-search form-control-feedback" data-bind="visible: !search()"></span>
-							</div>
-						</form>
-					</div>
-					
-					<div id="itemDetails">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h5>Skin Details</h5>
-							</div>
-							
-							<ul class="list-group" data-bind="visible: detailId">
-								<li class="list-group-item detailMain">
-									<div class="detailLeft pull-left">
-										<img class="detailIcon" data-bind="attr: {src: detailIcon}" />
-										<small class="detailCode" data-copied-hint="Copied" data-bind='text: detailCode, attr: {"data-clipboard-text": detailCode}'></small>
-									</div>
-									<h5 class="detailName" data-bind="text: detailName"></h5>
-									<p class="detailDesc text-muted" data-bind="text: detailDesc"></p>
-								</li>
+					<div class="affixContainer affixRight">
+						<div id="search">
+							<form class="form-inline" role="form">
+								<div class="form-group has-feedback">
+									<input type="search" class="form-control" id="inputSearch" placeholder="Search items" data-bind="value: search, valueUpdate: 'input'">
+									<span class="glyphicon glyphicon-remove form-control-feedback" data-bind="visible: search" id="clearSearch"></span>
+									<span class="glyphicon glyphicon-search form-control-feedback" data-bind="visible: !search()"></span>
+								</div>
+							</form>
+						</div>
+						
+						<div id="itemDetails">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h5>Skin Details</h5>
+								</div>
 								
-								<li class="list-group-item detailImages" data-bind="visible: detailImages().length > 0">
-									<div class="center-block detailImageContainer" data-bind="foreach: detailImages">
-										<div class="detailImage">
-											<img data-bind="attr: {src: src, alt: alt}" />
+								<ul class="list-group" data-bind="visible: detailId">
+									<li class="list-group-item detailMain">
+										<div class="detailLeft pull-left">
+											<img class="detailIcon" data-bind="attr: {src: detailIcon}" />
+											<small class="detailCode" data-copied-hint="Copied" data-bind='text: detailCode, attr: {"data-clipboard-text": detailCode}'></small>
 										</div>
-									</div>
-								</li>
-								
-								<li class="list-group-item detailAcquire" data-bind="visible: (detailAcquire() || detailRecipe())">
-									<div data-bind="visible: detailAcquire">
-										<h5>Acquisition</h5>
-										<div data-bind="html: detailAcquire"></div>
-									</div>
+										<h5 class="detailName" data-bind="text: detailName"></h5>
+										<p class="detailDesc text-muted" data-bind="text: detailDesc"></p>
+									</li>
 									
-									<div data-bind="visible: detailRecipe">
-										<h5>Recipe</h5>
-										<div data-bind="html: detailRecipe"></div>
-									</div>
-								</li>
-							</ul>
-							
-							<div class="panel-body" data-bind="visible: detailEmpty">
-								<p class="text-muted">Click on a skin to show details.</p>
-							</div>
-							
-							<div class="panel-footer">
-								<button type="button" class="btn btn-primary" id="trackerAdd" data-bind='attr: {"data-id": detailId}, enable: (detailId() && trackerAvailable()), text: trackerAddText'></button>
-								<a class="btn btn-default" role="button" target="_blank" data-bind="attr: {href: detailPage}, css: {disabled: detailEmpty}">Official Wiki</a>
-								<a class="btn btn-danger pull-right" role="button" data-bind="click: gw2w.clear, visible: detailId">Clear</a>
+									<li class="list-group-item detailImages" data-bind="visible: detailImages().length > 0">
+										<div class="center-block detailImageContainer" data-bind="foreach: detailImages">
+											<div class="detailImage">
+												<img data-bind="attr: {src: src, alt: alt}" />
+											</div>
+										</div>
+									</li>
+									
+									<li class="list-group-item detailAcquire" data-bind="visible: (detailAcquire() || detailRecipe())">
+										<div data-bind="visible: detailAcquire">
+											<h5>Acquisition</h5>
+											<div data-bind="html: detailAcquire"></div>
+										</div>
+										
+										<div data-bind="visible: detailRecipe">
+											<h5>Recipe</h5>
+											<div data-bind="html: detailRecipe"></div>
+										</div>
+									</li>
+								</ul>
+								
+								<div class="panel-body" data-bind="visible: detailEmpty">
+									<p class="text-muted">Click on a skin to show details.</p>
+								</div>
+								
+								<div class="panel-footer">
+									<button type="button" class="btn btn-primary" id="trackerAdd" data-bind='attr: {"data-id": detailId}, enable: (detailId() && trackerAvailable()), text: trackerAddText'></button>
+									<a class="btn btn-default" role="button" target="_blank" data-bind="attr: {href: detailPage}, css: {disabled: detailEmpty}">Official Wiki</a>
+									<a class="btn btn-danger pull-right" role="button" data-bind="click: gw2w.clear, visible: detailId">Clear</a>
+								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div id="tracker">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h5>Skin Tracker <span class="gw2tooltip glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="The item tracker saves automagically! You can close or refresh your browser and everything will still be here."></span></h5>
-							</div>
-							
-							<ul class="list-group" data-bind="foreach: tracker, visible: tracker().length > 0">
-								<a href="#" class="trackerItem list-group-item" data-bind='attr: {"data-id": id}, click: gw2w.tracker.click'>
-									<button type="button" class="btn btn-link pull-right" data-bind='click: gw2w.tracker.remove'>Remove</button>
-									<img class="trackerIcon pull-left" data-bind="attr: {src: icon}" />
-									<p class="trackerName list-group-item-heading" data-bind="text: name"></p>
-								</a>
-							</ul>
-							
-							<div class="panel-body" data-bind="visible: tracker().length < 1">
-								<p class="text-muted">There are currently no skins in the tracker.</p>
-							</div>
-							
-							<div class="panel-footer">
-								<button type="button" class="btn btn-default" data-copied-hint="Copied" id="trackerCopy" data-bind='enable: tracker().length > 0, attr: {"data-clipboard-text": trackerCode}'>Copy chat codes</button>
-								<a class="btn btn-danger pull-right" role="button" data-bind="click: gw2w.tracker.clear, visible: tracker().length > 0">Clear</a>
+						
+						<div id="tracker">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h5>Skin Tracker <span class="gw2tooltip glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="The item tracker saves automagically! You can close or refresh your browser and everything will still be here."></span></h5>
+								</div>
+								
+								<ul class="list-group" data-bind="foreach: tracker, visible: tracker().length > 0">
+									<a href="#" class="trackerItem list-group-item" data-bind='attr: {"data-id": id}, click: gw2w.tracker.click'>
+										<button type="button" class="btn btn-link pull-right" data-bind='click: gw2w.tracker.remove'>Remove</button>
+										<img class="trackerIcon pull-left" data-bind="attr: {src: icon}" />
+										<p class="trackerName list-group-item-heading" data-bind="text: name"></p>
+									</a>
+								</ul>
+								
+								<div class="panel-body" data-bind="visible: tracker().length < 1">
+									<p class="text-muted">There are currently no skins in the tracker.</p>
+								</div>
+								
+								<div class="panel-footer">
+									<button type="button" class="btn btn-default" data-copied-hint="Copied" id="trackerCopy" data-bind='enable: tracker().length > 0, attr: {"data-clipboard-text": trackerCode}'>Copy chat codes</button>
+									<a class="btn btn-danger pull-right" role="button" data-bind="click: gw2w.tracker.clear, visible: tracker().length > 0">Clear</a>
+								</div>
 							</div>
 						</div>
 					</div>

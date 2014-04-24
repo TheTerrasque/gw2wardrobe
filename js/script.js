@@ -27,6 +27,15 @@ var gw2w = {
 		$('.gw2tooltip').tooltip();
 		//$.gw2tooltip('[data-gw2skin]');
 		
+		// Affix
+		$('.affixContainer').affix({
+			offset: {
+				bottom: function () {
+					return (this.bottom = $('#footer').outerHeight(true))
+				}
+			}
+		});
+		
 		// Update tracker
 		gw2w.storage.tracker.get();
 		
