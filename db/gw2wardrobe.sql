@@ -3152,6 +3152,17 @@ ALTER TABLE `gw2_armor_types`
 ALTER TABLE `gw2_weapon_types`
   ADD CONSTRAINT `gw2_weapon_types_ibfk_1` FOREIGN KEY (`category`) REFERENCES `gw2_weapon_categories` (`id`);
 
+
+--
+-- Change some name values to fix
+--
+UPDATE `gw2_skins` SET `armor_type`="Chest" WHERE `armor_type` = "Coat";
+UPDATE `gw2_skins` SET `armor_type`="Headgear" WHERE `armor_type` = "Helm";
+UPDATE `gw2_skins` SET `armor_type`="AquaticHeadgear" WHERE `armor_type` = "HelmAquatic";
+UPDATE `gw2_skins` SET `weapon_type`="HarpoonGun" WHERE `weapon_type` = "Harpoon";
+UPDATE `gw2_skins` SET `weapon_type`="Spear" WHERE `weapon_type` = "Speargun";
+  
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

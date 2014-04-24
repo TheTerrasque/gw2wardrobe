@@ -10,6 +10,7 @@
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		
 		<!-- Custom style -->
+		<!--link href="js/theme/default/guildwars2-tooltip.css" rel="stylesheet"-->
 		<link href="css/style.css" rel="stylesheet">
 		
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -234,6 +235,7 @@
 		<script src="js/knockout-3.1.0.js"></script>
 		<!-- Custom Script -->
 		<script src="js/ZeroClipboard.min.js"></script>
+		<!--script src="js/guildwars2-tooltip.jquery.js"></script-->
 		<script src="js/script.js"></script>
 		
 		

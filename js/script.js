@@ -25,6 +25,7 @@ var gw2w = {
 		
 		//gw2w.plugins.tooltip();
 		$('.gw2tooltip').tooltip();
+		//$.gw2tooltip('[data-gw2skin]');
 		
 		// Update tracker
 		gw2w.storage.tracker.get();
@@ -297,8 +298,8 @@ var gw2w = {
 			}
 			
 			
-			// Since this site will only work with items, we can hard code the type
-			var type = "2";
+			// Since this site will only work with skins, we can hard code the type
+			var type = "11";
 			
 			// Thanks to ArenaNet for doing the magic!
 			if (type.toString().match(/(1|2|4|7|8|10)/)) {
