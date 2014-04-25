@@ -162,6 +162,12 @@
 									<li class="list-group-item">
 										<a href="https://github.com/nightzirch/gw2wardrobe/commits/master">GuildWars2 Wardrobe on GitHub</a>
 									</li>
+									<li class="list-group-item">
+										<a href="http://www.reddit.com/r/Guildwars2/comments/233svc/tool_announcing_gw2wardrobecom/">Reddit: "Announcing gw2wardrobe.com!"</a>
+									</li>
+									<li class="list-group-item">
+										<a href="http://www.reddit.com/r/Guildwars2/comments/22e0mm/what_kind_of_online_tool_do_you_miss/">Reddit: "What kind of online tool do you miss?"</a>
+									</li>
 								</ul>
 							</div>
 						</div>
