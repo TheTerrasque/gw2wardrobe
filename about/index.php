@@ -86,7 +86,7 @@
 											<li>If there is a page on the official wiki about the currently selected item, there will a link to that page.</li>
 											<li>If the official wiki page of the currently selected item contains either a recipe or information on how to acquire the item, the according information will be pulled and displayed with the rest of the item details.</li>
 											<li>Thanks to ArenaNet for giving me the opportunity to steal the code they use to generate the ingame link codes.</li>
-											<li>Users are able to copy chat codes for the currently displayed item.</li>
+											<li>Through just one click, users are able to copy chat codes for the currently displayed item.</li>
 										</ul>
 									</li>
 									<li>
@@ -95,7 +95,7 @@
 											<li>By clicking "Add to tracker" in the item details, the currently selected item will be added to the tracker.</li>
 											<li>The tracker will allow users to store particular items of interest and easily acquire the item details by clicking the item in the tracker.</li>
 											<li>If you by any chance are using Internet Explorer 7 or earlier, and refuse to upgrade, you deserve the unhappiness the lack of the tracker will bring you.</li>
-											<li>Users are able to copy all the chat codes for the items in the tracker.</li>
+											<li>Through just one click, users are able to copy all the chat codes for the items in the tracker.</li>
 										</ul>
 									</li>
 									<li>
@@ -112,7 +112,6 @@
 						
 						<h3>Upcoming features <small>Features I would like to add in the future.</small></h3>
 						<ul>
-							<li>Performance improvements.</li>
 							<li>Various design improvements.</li>
 							
 							<li>
