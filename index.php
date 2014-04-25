@@ -55,7 +55,7 @@
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h5>
-										<a href="#sortArmor" data-toggle="collapse" data-parent="#sortMenu">
+										<a href="#sortArmor" data-toggle="collapse" data-parent="#sortMenu" data-activeType="Armors">
 											Armor Skins
 											<span class="collapse-arrow pull-right">&#x25B2;</span>
 										</a>
@@ -64,7 +64,7 @@
 								
 								<ul id="sortArmor" class="list-group collapse in" data-bind="foreach: armorCategories">
 									<li class="list-group-item">
-										<a data-bind='attr: {href: "#" + shortname}, text: fullname'></a>
+										<a href="#" data-bind='attr: {"data-category": id}, text: fullname'></a>
 									</li>
 								</ul>
 							</div>
@@ -72,7 +72,7 @@
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h5>
-										<a href="#sortWeapon" class="collapsed" data-toggle="collapse" data-parent="#sortMenu">
+										<a href="#sortWeapon" class="collapsed" data-toggle="collapse" data-parent="#sortMenu" data-activeType="Weapons">
 											Weapon Skins
 											<span class="collapse-arrow pull-right">&#x25B2;</span>
 										</a>
@@ -81,7 +81,7 @@
 								
 								<ul id="sortWeapon" class="list-group collapse" data-bind="foreach: weaponCategories">
 									<li class="list-group-item">
-										<a data-bind='attr: {href: "#" + shortname}, text: fullname'></a>
+										<a href="#" data-bind='attr: {"data-category": id}, text: fullname'></a>
 									</li>
 								</ul>
 							</div>
@@ -89,22 +89,22 @@
 					</div>
 				</div>
 				
-				<div class="col-md-7">
-					<div id="loading" data-bind="visible: loading">
+				<div class="col-md-7" data-bind='style: {"min-height": minHeight() + "px"}'>
+					<!--div id="loading" data-bind="visible: loading">
 						<img src="img/loading.gif" alt="Loading" />
-					</div>
+					</div-->
 					
 					<div id="itemsContainer" class="panel-group">
-						<div data-bind="foreach: armors">
+						<div data-bind='foreach: armors, visible: activeType() == "Armors"'>
 							<div class="panel panel-default" data-bind="visible: (size() != 0) && visible">
 								<div class="panel-heading">
-									<a class="collapsed" data-toggle="collapse" data-bind='html: fullname + arrow, attr: {href: "#" + shortname}'></a>
+									<a class="" data-toggle="collapse" data-bind='html: fullname + arrow, attr: {href: "#" + shortname}'></a>
 									<span style="margin-right: -3px">(</span>
 									<span data-bind='text: size() + " / ", visible: size() != null'></span>
 									<span data-bind='text: value().length + ")"'></span>
 								</div>
 								
-								<div class="panel-collapse collapse" data-bind="attr: {id: shortname}">
+								<div class="panel-collapse collapse in" data-bind="attr: {id: shortname}">
 									<div class="panel-body" data-bind="foreach: value">
 										<div class="itemBlock" data-bind='attr: {"data-gw2skin": id}, visible: visible'>
 											<img data-bind="attr: {src: img}" />
@@ -114,16 +114,16 @@
 							</div>
 						</div>
 						
-						<div data-bind="foreach: weapons">
+						<div data-bind='foreach: weapons, visible: activeType() == "Weapons"'>
 							<div class="panel panel-default" data-bind="visible: (size() != 0) && visible">
 								<div class="panel-heading">
-									<a class="collapsed" data-toggle="collapse" data-bind='html: fullname + arrow, attr: {href: "#" + shortname}'></a>
+									<a class="" data-toggle="collapse" data-bind='html: fullname + arrow, attr: {href: "#" + shortname}'></a>
 									<span style="margin-right: -3px">(</span>
 									<span data-bind='text: size() + " / ", visible: size() != null'></span>
 									<span data-bind='text: value().length + ")"'></span>
 								</div>
 								
-								<div class="panel-collapse collapse" data-bind="attr: {id: shortname}">
+								<div class="panel-collapse collapse in" data-bind="attr: {id: shortname}">
 									<div class="panel-body" data-bind="foreach: value">
 										<div class="itemBlock" data-bind='attr: {"data-gw2skin": id}, visible: visible'>
 											<img data-bind="attr: {src: img}" />
@@ -234,7 +234,7 @@
 		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
 		<script src="js/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="js/bootstrap.min.js"></script>
+		<script src="js/bootstrap.js"></script>
 		<!-- Knockout JS -->
 		<script src="js/knockout-3.1.0.js"></script>
 		<!-- Custom Script -->

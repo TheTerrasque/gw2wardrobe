@@ -36,7 +36,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="#" data-bind="click: gw2w.modal.clearLocalStorage">Clear Local Storage</a></li>
+						<li><a href="#" data-bind="click: gw2w.modal.clearLocalStorage">Local Storage Settings</a></li>
 					</ul>
 				</li>
 				

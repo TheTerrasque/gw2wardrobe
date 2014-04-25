@@ -23,24 +23,23 @@ var gw2w = {
 		gw2w.process.types();
 		gw2w.process.skins();
 		
+		// Plugins
 		//gw2w.plugins.tooltip();
+		//gw2w.plugins.affix();
 		$('.gw2tooltip').tooltip();
-		//$.gw2tooltip('[data-gw2skin]');
 		
-		// Affix
-		$('.affixContainer').affix({
-			offset: {
-				bottom: function () {
-					return (this.bottom = $('#footer').outerHeight(true))
-				}
-			}
-		});
+		
+		// Min height
+		gw2w.general.minHeight();
 		
 		// Update tracker
 		gw2w.storage.tracker.get();
 		
 		// Listeners
 		gw2w.listeners.all();
+		
+		// Set active type to armor
+		gw2w.vm.activeType("Armors");
 	},
 	
 	// The view model object
@@ -68,6 +67,12 @@ var gw2w = {
 		
 		// Local Storage
 		self.localStorage = ko.observable();
+		
+		// Active type
+		self.activeType = ko.observable(null);
+		
+		// Min Height
+		self.minHeight = ko.observable(null);
 		
 		// Armor and weapon array
 		self.armors = ko.observableArray();
@@ -262,6 +267,17 @@ var gw2w = {
 				}
 			}
 		},
+		minHeight: function() {
+			var vm = gw2w.vm;
+			
+			var affixContainers = $(".affixContainer");
+			
+			// Find the tallest sidepanel
+			var height = ($(affixContainers[0]).height() > $(affixContainers[1]).height()) ? $(affixContainers[0]).height() : $(affixContainers[1]).height();
+			
+			// Set minHeight
+			vm.minHeight(height);
+		},
 		BEtoLE: function(be) {
 			// Thanks to ArenaNet for creating this!
 			var le = String.fromCharCode(be.charCodeAt(0) & 255) + String.fromCharCode(be.charCodeAt(0) >> 8);
@@ -422,6 +438,8 @@ var gw2w = {
 			gw2w.listeners.linkCode();
 			gw2w.listeners.linkCodeAll();
 			gw2w.listeners.radioLocalStorage();
+			gw2w.listeners.activeType();
+			gw2w.listeners.skinCategory();
 		},
 		itemBlock: function() {
 			$(".itemBlock").on("click", function() {
@@ -571,6 +589,66 @@ var gw2w = {
 					gw2w.storage.active(active);
 				});
 			});
+		},
+		activeType: function() {
+			$("#sortMenu .panel-heading a[data-activeType]").each(function() {
+				$(this).on("click", function() {
+					var vm = gw2w.vm;
+					
+					// Getting the activeType
+					var activeType = $(this).attr("data-activeType");
+					
+					// Setting the activeType
+					vm.activeType(activeType);
+				});
+			});
+		},
+		skinCategory: function() {
+			$("#sortArmor a, #sortWeapon a").each(function() {
+				$(this).on("click", function(e) {
+					e.preventDefault();
+					
+					var vm = gw2w.vm;
+					
+					// Define which category that is Show All
+					var all = 4;
+					
+					// Getting the activeType and category
+					var activeType = vm.activeType();
+					var category = $(this).attr("data-category");
+					
+					// Setting the correct type of skins
+					var skins;
+					
+					if(activeType == "Armors") {
+						skins = vm.armors();
+					}
+					else if(activeType == "Weapons") {
+						skins = vm.weapons();
+					}
+					else {
+						// Error: Unexpected value
+					}
+					
+					// Loop through the skins and set visible according to the category
+					$(skins).each(function() {
+						// If All Weights or All Types are clicked (category = 0), then we'll make everything visible
+						if(category == all) {
+							this.visible(true);
+						}
+						// If not...
+						else {
+							// We set visible according to the category, or if the category is the category for Show All.
+							if(this.category == category || this.category == all) {
+								this.visible(true);
+							}
+							else {
+								this.visible(false);
+							}
+						}
+					});
+				});
+			});
 		}
 	},
 	
@@ -693,6 +771,7 @@ var gw2w = {
 					"arrow": gw2w.items.arrow,
 					"size": ko.observable(null),
 					"visible": ko.observable(true),
+					"category": obj.category,
 					"value": ko.observableArray()
 				});
 			});
@@ -1262,7 +1341,16 @@ var gw2w = {
 	
 	plugins: {
 		tooltip: function() {
-			$.gw2tooltip('[data-gw2item]');
+			$.gw2tooltip('[data-gw2skin]');
+		},
+		affix: function() {
+			$('.affixContainer').affix({
+				offset: {
+					bottom: function () {
+						return (this.bottom = $('#footer').outerHeight(true))
+					}
+				}
+			});
 		}
 	}
 }

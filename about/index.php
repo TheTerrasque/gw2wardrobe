@@ -101,7 +101,7 @@
 									<li>
 										Local Storage
 										<ul>
-											<li>GuildWars2 Wardrobe uses Local Storage by default, but in <em>Tools > Clear Local Storage</em>, users can force the tool to not use Local Storage.</li>
+											<li>GuildWars2 Wardrobe uses Local Storage by default, but in <em>Tools > Local Storage Settings</em>, users can force the tool to not use Local Storage.</li>
 											<li>All items will be stored in the Local Storage.</li>
 											<li>The tracker information is stored in the web browsers localStorage, which is supported by all the major browsers. There is no support for Internet Explorer 7 and earlier.</li>
 										</ul>
