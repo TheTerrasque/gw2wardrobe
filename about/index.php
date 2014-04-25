@@ -30,23 +30,25 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2">
-					<div id="menu" class="panel-group">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h5>Menu</h5>
+					<div class="affixContainer affixSmall">
+						<div id="menu" class="panel-group">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h5>Menu</h5>
+								</div>
+								
+								<ul class="list-group">
+									<li class="list-group-item">
+										<a href="#welcome">GuildWars2 Wardrobe</a>
+									</li>
+									<li class="list-group-item">
+										<a href="#features">Features</a>
+									</li>
+									<li class="list-group-item">
+										<a href="#author">Author</a>
+									</li>
+								</ul>
 							</div>
-							
-							<ul class="list-group">
-								<li class="list-group-item">
-									<a href="#welcome">GuildWars2 Wardrobe</a>
-								</li>
-								<li class="list-group-item">
-									<a href="#features">Features</a>
-								</li>
-								<li class="list-group-item">
-									<a href="#author">Author</a>
-								</li>
-							</ul>
 						</div>
 					</div>
 				</div>
@@ -150,17 +152,19 @@
 				</div>
 				
 				<div class="col-md-2">
-					<div id="ressources" class="panel-group">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h5>Resources</h5>
+					<div class="affixContainer affixSmall">
+						<div id="resources" class="panel-group">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h5>Resources</h5>
+								</div>
+								
+								<ul class="list-group">
+									<li class="list-group-item">
+										<a href="https://github.com/nightzirch/gw2wardrobe/commits/master">GuildWars2 Wardrobe on GitHub</a>
+									</li>
+								</ul>
 							</div>
-							
-							<ul class="list-group">
-								<li class="list-group-item">
-									<a href="https://github.com/nightzirch/gw2wardrobe/commits/master">GuildWars2 Wardrobe on GitHub</a>
-								</li>
-							</ul>
 						</div>
 					</div>
 				</div>

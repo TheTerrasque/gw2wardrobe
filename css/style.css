@@ -8,7 +8,7 @@ body {
 
 #sortMenu .panel > .list-group,
 #menu .panel > .list-group,
-#ressources .panel > .list-group {
+#resources .panel > .list-group {
 	border-top: 1px solid #ddd;
 }
 
@@ -197,14 +197,16 @@ div.panel hr {
 	margin-top: 40px;
 }
 
-.affix.affixLeft {
-	width: 16.66666667%;
+.affix {
 	padding-right: 30px;
 }
 
-.affix.affixRight {
+.affix.affixSmall {
+	width: 16.66666667%;
+}
+
+.affix.affixMedium {
 	width: 25%;
-	padding-right: 30px;
 }
 
 .affix-bottom {

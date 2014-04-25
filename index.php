@@ -40,7 +40,7 @@
 			
 			<div class="row">
 				<div class="col-md-2">
-					<div class="affixContainer affixLeft">
+					<div class="affixContainer affixSmall">
 						<div id="sortMenu" class="panel-group">
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -136,7 +136,7 @@
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div class="affixContainer affixRight">
+					<div class="affixContainer affixMedium">
 						<div id="search">
 							<form class="form-inline" role="form">
 								<div class="form-group has-feedback">
