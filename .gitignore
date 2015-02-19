@@ -215,3 +215,5 @@ pip-log.txt
 .mr.developer.cfg
 db/config live.php
 config.php
+db/configlive.php
+db/config.php

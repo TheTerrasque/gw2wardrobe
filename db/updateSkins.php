@@ -2,8 +2,12 @@
 	include('config.php');
 
 	// Fetching GET
-	$from = $_GET['from'];
-	$to = $_GET['to'];
+	if(isset($_GET['from'])) {
+		$from = $_GET['from'];
+	}
+	if(isset($_GET['to'])) {
+		$to = $_GET['to'];
+	}
 	
 	// URLs
 	$apiSkins = 'https://api.guildwars2.com/v1/skins.json';

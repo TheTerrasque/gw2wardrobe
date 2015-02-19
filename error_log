@@ -1,0 +1,4 @@
+[30-Apr-2014 10:51:03 America/Denver] PHP Notice:  Undefined index: from in /home4/chrisuu7/public_html/domains/gw2wardrobe/dev/db/updateSkins.php on line 5
+[30-Apr-2014 10:51:03 America/Denver] PHP Notice:  Undefined index: to in /home4/chrisuu7/public_html/domains/gw2wardrobe/dev/db/updateSkins.php on line 6
+[30-Apr-2014 11:32:41 America/Denver] PHP Parse error:  syntax error, unexpected ';', expecting ',' or ')' in /home4/chrisuu7/public_html/domains/gw2wardrobe/dev/db/updateSkins.php on line 5
+[30-Apr-2014 11:33:34 America/Denver] PHP Notice:  Undefined variable: skins in /home4/chrisuu7/public_html/domains/gw2wardrobe/dev/db/updateSkins.php on line 21
