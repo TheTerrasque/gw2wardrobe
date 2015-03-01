@@ -1,0 +1,2 @@
+https://github.com/TheTerrasque/gw2lib/archive/master.zip
+pymongo==2.8
